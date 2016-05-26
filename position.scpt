@@ -1,0 +1,1 @@
+tell application "System Events" to tell application process "Minesweeper Deluxe"	set pos to position of window 1	do shell script "echo " & item 1 of pos & "," & item 2 of posend tell
