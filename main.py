@@ -157,7 +157,5 @@ def main():
         time.sleep(0.5)
 
 if __name__ == '__main__':
-
-
-
+    raw_input('press any key to continue...')
     main()
