@@ -8,4 +8,4 @@ def timer(msg):
     start = time.time()
     yield
     end = time.time()
-    print "%s: %.02fs" % (msg, end-start)
+    print "%s: %.2fs" % (msg, end-start)

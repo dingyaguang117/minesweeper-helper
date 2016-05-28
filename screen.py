@@ -48,7 +48,8 @@ def get_base_xy(col, row):
 
 def get_matrix(matrix=None):
     t1 = time.time()
-    im = get_screenshot() #ImageGrab.grab()
+    #use pyobjc instead of ImageGrab.grab()
+    im = get_screenshot()
     t2 = time.time()
 
     if matrix is None:
