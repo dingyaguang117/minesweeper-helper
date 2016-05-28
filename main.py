@@ -12,20 +12,23 @@ def calc(matrix):
 
 
 def main():
+    matrix = None
+    round  = 1
+
     while True:
+        print '-------- round %d --------' % round
         t = time.time()
-        matrix = get_matrix()
+        matrix = get_matrix(matrix)
         print_matrix(matrix)
         time.sleep(3)
-        print 'time:', time.time() - t
-        # print matrix
-        print calc(matrix)
         mines, nomines = calc(matrix)
         print mines, nomines
         for position in mines:
             flag(position[0], position[1], False)
         for position in nomines:
             flag(position[0], position[1], False)
+
+        round += 1
 
 if __name__ == '__main__':
     main()

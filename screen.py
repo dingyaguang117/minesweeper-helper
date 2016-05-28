@@ -5,8 +5,7 @@ import time
 
 from collections import defaultdict
 from itertools import product
-
-from PIL import ImageGrab
+from screen_capture import get_screenshot
 
 SIZE = 30           # size of grid
 W, H = 16, 16       # count of cols and rows
@@ -47,27 +46,31 @@ def get_base_xy(col, row):
     return base_x, base_y
 
 
-def get_matrix():
+def get_matrix(matrix=None):
     t1 = time.time()
-    im = ImageGrab.grab()
+    im = get_screenshot() #ImageGrab.grab()
     t2 = time.time()
 
-    matrix = []
-    for i in xrange(0, W):
-        matrix.append([0] * H)
+    if matrix is None:
+        matrix = []
+        for i in xrange(0, W):
+            matrix.append([0] * H)
 
     for col, row in product(xrange(W), xrange(H)):
         # s = defaultdict(int)
+        if matrix[col][row] != 0:
+            continue
+
         base_x, base_y = get_base_xy(col, row)
 
-        for _x, _y in product(xrange(4, SIZE - 4), xrange(4, SIZE - 4)):
+        for _x, _y in product(xrange(SIZE - 4, 4, -1), xrange(SIZE - 4, 4, -1)):
             color = im.getpixel((base_x + _x, base_y + _y))
-            color = tuple(map(lambda a: a >> 4, color[:3]))
+            color = (color[0] >> 4, color[1] >> 4, color[2] >> 4)
 
             # s[color] += 1
             if color in COLORS:
                 matrix[col][row] = COLORS[color]
-                # break
+                break
 
         if matrix[col][row] == 0 and im.getpixel((base_x, base_y))[0] < 200:
             matrix[col][row] = ' '
